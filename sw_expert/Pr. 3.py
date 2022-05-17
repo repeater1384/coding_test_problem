@@ -4,7 +4,8 @@ def dfs(cur, depth, max_depth):
     if depth == max_depth:
         return
     for idx in range(len(cur)):
-        
+        pass
+
 
 
 T = int(input())
