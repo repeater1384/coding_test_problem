@@ -1,27 +1,40 @@
-import sys
+T = 10
 
-input = sys.stdin.readline
-T = int(input())
+
+def dfs():
+    sx, sy, ex, ey = *start, *end
+    visited = [[False] * 16 for _ in range(16)]
+
+    stack = [(sx, sy)]
+    visited[sy][sx] = True
+
+    d = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+
+    while stack:
+        cx, cy = stack.pop()
+
+        if cx == ex and cy == ey:
+            return 1
+
+        for dx, dy in d:
+            nx, ny = cx + dx, cy + dy
+            if 0 <= nx < 16 and 0 <= ny < 16:
+                if not visited[ny][nx]:
+                    if matrix[ny][nx] != 1:
+                        stack.append((nx, ny))
+                        visited[ny][nx] = True
+
+    return 0
+
+
 for tc in ['#' + str(t) for t in range(1, T + 1)]:
-    N = int(input())
-    answer = 0
-    for _ in range(N):
-        x, y = map(int, input().split())
-        dis = (x ** 2 + y ** 2) ** .5
-        answer += max(10 - int(dis // 20), 0)
+    input()
+    matrix = [[*map(int, input())] for _ in range(16)]
 
-    print(tc, answer)
-
-# 1206
-# T = 10
-# for tc in ['#' + str(t) for t in range(1, T + 1)]:
-#     n = int(input())
-#     arr = [*map(int, input().split())]
-#     answer = 0
-#
-#     for i in range(2, n - 2):
-#         cur = arr[i]
-#         left, right = max(arr[i - 2:i]), max(arr[i + 1:i + 3])
-#         if cur >= left and cur >= right:
-#             answer += min(cur - left, cur - right)
-#     print(tc, answer)
+    for y in range(16):
+        for x in range(16):
+            if matrix[y][x] == 2:
+                start = x, y
+            if matrix[y][x] == 3:
+                end = x, y
+    print(tc, dfs())
