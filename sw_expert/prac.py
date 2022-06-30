@@ -1,4 +1,11 @@
-N, W, H = map(int, input().split())
-dialog = (W * W + H * H) ** .5
-for _ in range(N):
-    print('DA' if dialog >= int(input()) else 'NE')
+def combinations(arr, depth):
+    for i in range(len(arr)):
+        if depth == 1:
+            yield arr[i]
+        else:
+            for next in combinations(arr[i + 1:], depth - 1):
+                yield arr[i] + next
+
+for comb in combinations([*map(str,range(5))], 2):
+    a, b = comb
+    print(a,b)
